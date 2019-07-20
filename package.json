@@ -8,6 +8,7 @@
     "@types/node": "12.6.8",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.4",
+    "cross-env": "^5.2.0",
     "firebase": "^6.3.1",
     "firebaseui": "^4.1.0",
     "react": "^16.8.6",
@@ -19,9 +20,9 @@
     "typescript": "3.5.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cross-env react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
