@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormGroup, InputGroup, ControlGroup, NumericInput, Button } from '@blueprintjs/core';
+import { FormGroup, InputGroup, NumericInput, Button } from '@blueprintjs/core';
 import { ISkill } from '../../common/types';
 import moment from 'moment';
 

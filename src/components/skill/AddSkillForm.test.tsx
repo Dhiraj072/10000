@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { Skill } from './Skill';
 import { AddSkillForm } from './AddSkillForm';
-import { any, number } from 'prop-types';
 
 const mockOnsubmit = jest.fn();
 

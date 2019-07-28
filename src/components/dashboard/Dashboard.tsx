@@ -1,5 +1,4 @@
 import React from 'react';
-import { Skill } from '../skill/Skill';
 import { AddSkillForm } from '../skill/AddSkillForm';
 import { Tab, Tabs } from "@blueprintjs/core";
 import * as firebase from 'firebase';
