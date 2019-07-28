@@ -5,5 +5,5 @@ export interface ISkill {
     description?: string,
     targetHours: number,
     achievedHours: number,
-    startDate?: Moment
+    startDate?: number
 }

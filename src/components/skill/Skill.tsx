@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, H3, H4, H2 } from "@blueprintjs/core";
 import { ISkill } from "../../common/types";
+import moment from 'moment';
 
 export const Skill: React.FC<ISkill> = (props) => {
     const { name, description, targetHours, achievedHours, startDate } = props;
@@ -8,7 +9,7 @@ export const Skill: React.FC<ISkill> = (props) => {
         <Card>
             <H3>{name}</H3>
             <H4>{achievedHours}/{targetHours} target hours achieved</H4>
-            {startDate ? <H2>Started on  { startDate.format('LL') } </H2> : '' }
+            {startDate ? <H2>Started on  { moment(startDate).format('LL') } </H2> : '' }
         </Card>
     )
 }

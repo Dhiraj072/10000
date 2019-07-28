@@ -10,7 +10,7 @@ const skills = [
             name: "skill1",
             targetHours: 4,
             achievedHours: 1,
-            startDate: moment1
+            startDate: moment1.valueOf()
         },
         {
             name: "skill2",
