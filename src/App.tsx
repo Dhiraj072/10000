@@ -6,6 +6,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { User } from 'firebase';
 import { Dashboard } from './components/dashboard/Dashboard';
+import { H1, H2 } from '@blueprintjs/core';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -46,6 +47,8 @@ const App: React.FC = () => {
     })
     return (
       <div className="App">
+        <H1>10000</H1>
+        <H2>Build your skills</H2>
       <header className="App-header">
       {
         user ?
