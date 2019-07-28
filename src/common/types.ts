@@ -1,7 +1,9 @@
+import { Moment } from "moment";
+
 export interface ISkill {
-    name: String,
-    description?: String,
-    targetHours: Number,
-    achievedHours: Number,
-    startDate?: Date
+    name: string,
+    description?: string,
+    targetHours: number,
+    achievedHours: number,
+    startDate?: Moment
 }
