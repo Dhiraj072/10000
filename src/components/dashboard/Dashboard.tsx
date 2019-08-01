@@ -1,19 +1,8 @@
 import React from 'react';
 import { AddSkillForm } from '../skill/AddSkillForm';
 import { Tab, Tabs } from "@blueprintjs/core";
-import * as firebase from 'firebase';
 import { SkillsList } from '../skill/SkillsList';
-import { ISkill } from '../../common/types';
-
-const addSkillToFirebase = (skill: ISkill): void => {
-    const user = firebase.auth().currentUser ;
-    if (user !== null) {
-        console.log('Adding skill ', skill)
-        firebase.database().ref(`users/${user.uid}/skills`).push(skill);
-    } else {
-        throw new Error("Not logged in");
-    }
-}
+import { addSkillToFirebase } from '../../firebase/firebase';
 
 export const Dashboard: React.FC = () => {
     return (
