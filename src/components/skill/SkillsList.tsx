@@ -3,20 +3,20 @@ import { ISkill } from "../../common/types";
 import { Skill } from "./Skill";
 
 interface SkillsListProps {
-    skills: ISkill[]
+    skills: [string, ISkill][]
 }
 
 export const SkillsList: React.FC<SkillsListProps> = (props) => (
         <div>
             {
-                props.skills.map(({name, description, targetHours, achievedHours, startDate}) => (
+                props.skills.map((skill) => (
                     <Skill
-                        key={name}
-                        name={name}
-                        description={description}
-                        targetHours={targetHours}
-                        achievedHours={achievedHours}
-                        startDate={startDate}
+                        key={skill[0]}
+                        name={skill[1].name}
+                        description={skill[1].description}
+                        targetHours={skill[1].targetHours}
+                        achievedHours={skill[1].achievedHours}
+                        startDate={skill[1].startDate}
                     />
                 ))
             }
