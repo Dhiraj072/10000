@@ -23,7 +23,6 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
             event.preventDefault();
         }
         setSkill({ ...skill, [event.target.id] : event.target.value});
-        console.log({ ...skill, [event.target.id]: event.target.value });
     }
     const handleTargetHrsChange = (valNum: number, valStr: string) => {
         setSkill({ ...skill, 'targetHours': valNum});

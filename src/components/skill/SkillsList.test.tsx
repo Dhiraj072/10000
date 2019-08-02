@@ -19,7 +19,7 @@ const skills = [
         }
 ]
 
-it('renders a skill correctly', () => {
+it('renders skills list correctly', () => {
     const { getAllByText } = render(<SkillsList
         skills={skills}
     />);

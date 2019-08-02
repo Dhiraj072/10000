@@ -4,7 +4,7 @@ import { AddSkillForm } from './AddSkillForm';
 
 const mockOnsubmit = jest.fn();
 
-it('renders a skill correctly', async () => {
+it('adds a new skill correctly', async () => {
     const { getByTestId } = render(<AddSkillForm
         onSubmit={mockOnsubmit}
     />)
