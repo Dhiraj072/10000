@@ -13,19 +13,33 @@ export const config = {
 
 firebase.initializeApp(config);
 
-export const addSkillToFirebase = async (skill: ISkill) => {
-    const uid = process.env.NODE_ENV === 'test' ? '12345' : firebase.auth().currentUser!.uid;
-    if (uid !== null) {
-        console.log('Adding skill for uid', skill, uid)
-        await firebase.database().ref(`users/${uid}/skills`).push(skill)
-        .then((res) => { 
-            console.log('done')
-        }).catch((err) => { 
-            console.log('error', err)
-        });
-    } else {
-        throw new Error("Not logged in");
+const getUserId = (): string => {
+    const user = firebase.auth().currentUser;
+    if (user !== null) {
+        return user.uid;
     }
+    throw new Error("Not logged in");
+} 
+
+export const addSkill = async (skill: ISkill) => {
+    await firebase.database().ref(`users/${getUserId()}/skills`).push(skill)
 }
 
-export default { addSkillToFirebase };
+export const getSkills = async (): Promise<[string, ISkill][]> => {
+    return await firebase.database().ref(`users/${getUserId()}/skills`)
+    .once('value')
+    .then((res) => {
+        return res.val() 
+        ? Promise.resolve(Object.entries(res.val() as { [key: string]: ISkill }))
+        : Promise.resolve([])
+    }).catch((err) => {
+        console.log(err);
+        return Promise.reject("Error getting skills" + err);
+    });
+}
+
+export const removeSkill = async (skillId: string): Promise<string> => {
+    return await firebase.database().ref(`users/${getUserId()}/skills/${skillId}`).remove()
+    .then((res) => Promise.resolve("Success " + res.val()))
+    .catch((err) => Promise.resolve("Error " + err))
+}
