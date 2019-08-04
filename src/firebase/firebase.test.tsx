@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { addSkill, getSkills, removeSkill } from './firebase';
+import { addSkill, getSkills, removeSkill, updateSkill } from './firebase';
 
 const testUid = '123456';
 const mockInit = jest.spyOn(firebase, "auth");
@@ -15,7 +15,7 @@ mockInit.mockImplementation(() => {
     return { currentUser: { uid: testUid } } as firebase.auth.Auth;
 });
 
-afterAll(async () => {
+afterEach(async () => {
     await firebase.database().ref(`users/${testUid}`).remove();
 })
 
@@ -40,3 +40,17 @@ it('adds and removes skill from firebase correctly', async () => {
         });
     });
 });
+
+it ('updates firebase skill correctly', async () => {
+    await addSkill(testSkill);
+    await getSkills().then(async (result1) => {
+        const storedSkillId = result1[0][0];
+        const storedSkill = result1[0][1];
+        expect(storedSkill).toEqual(testSkill);
+        storedSkill.achievedHours = 12;
+        await updateSkill(storedSkillId, storedSkill);
+        await getSkills().then(async (result2) => {
+            expect(result2[0][1].achievedHours).toEqual(12);
+        })
+    })
+})

@@ -43,3 +43,7 @@ export const removeSkill = async (skillId: string): Promise<string> => {
     .then((res) => Promise.resolve("Success " + res.val()))
     .catch((err) => Promise.resolve("Error " + err))
 }
+
+export const updateSkill = async (skillId: string, skill: ISkill) => {
+    await firebase.database().ref(`users/${getUserId()}/skills/${skillId}`).update(skill)
+}
