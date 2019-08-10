@@ -7,7 +7,6 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { User } from 'firebase';
 import { Dashboard } from './components/dashboard/Dashboard';
-import { H1, H2 } from '@blueprintjs/core';
 import { Container, Box, Typography } from '@material-ui/core';
 
 

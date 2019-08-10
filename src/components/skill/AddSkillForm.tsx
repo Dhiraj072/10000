@@ -27,8 +27,11 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
         else
             setSkill({ ...skill, [event.target.id] : event.target.value});
     }
-    const handleTargetHrsChange = (valNum: number, valStr: string) => {
-        setSkill({ ...skill, 'targetHours': valNum});
+    const handleClickSubmit = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        onSubmit(skill);
+        setSkill(initSkill);
     }
     return (
         <Box width="50%">
@@ -70,7 +73,7 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                     color="primary"
                     data-testid="submit"
                     type="submit"
-                    onClick={() => onSubmit(skill)}
+                    onClick={handleClickSubmit}
                 >
                     Add Skill
                 </Button>            

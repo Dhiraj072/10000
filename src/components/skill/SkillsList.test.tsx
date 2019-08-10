@@ -25,7 +25,7 @@ it('renders skills list correctly', () => {
         skills={skills}
     />);
     const renderedSkills = getAllByText("skill", { exact: false });
-    expect(renderedSkills.length).toEqual(2);
-    expect(renderedSkills[0].textContent).toEqual("skill1");
-    expect(renderedSkills[1].textContent).toEqual("skill2");
+    expect(renderedSkills.length).toEqual(4);
+    expect(renderedSkills[0].textContent).toEqual("Skill1");
+    expect(renderedSkills[2].textContent).toEqual("Skill2");
 })

@@ -1,52 +1,83 @@
 import React, { useState } from 'react';
-import { Card, H3, H4, H2, FormGroup, H5, Button, NumericInput } from "@blueprintjs/core";
-import { ISkill } from "../../common/types";
-import moment from 'moment';
-import { updateSkill } from '../../firebase/firebase';
+import { withStyles } from '@material-ui/core/styles';
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import { ISkill } from '../../common/types';
+import { Box } from '@material-ui/core';
+import { UpdateSkillForm } from './UpdateSkillForm';
 
-interface SkillProps {
+export interface SkillProps {
     skillId: string,
     skill: ISkill
 }
 
-export const Skill: React.FC<SkillProps> = (props) => {
-    const [summaryOnly, setSummaryOnly] = useState<boolean>(true);
-    const [skill, setSkill] = useState<ISkill>(props.skill);
-    const { name, description, targetHours, achievedHours, startDate } = skill;
-    const handleAchievedHrsChange = (valNum: number, valStr: string) => {
-        setSkill({ ...props.skill, 'achievedHours': valNum });
-    }
+const ExpansionPanel = withStyles({
+    root: {
+        border: '1px solid rgba(0, 0, 0, .125)',
+        boxShadow: 'none',
+        '&:not(:last-child)': {
+            borderBottom: 0,
+        },
+        '&:before': {
+            display: 'none',
+        },
+        '&$expanded': {
+            margin: 'auto',
+        },
+    },
+    expanded: {},
+})(MuiExpansionPanel);
+
+const ExpansionPanelSummary = withStyles({
+    root: {
+        backgroundColor: 'rgba(0, 0, 0, .03)',
+        borderBottom: '1px solid rgba(0, 0, 0, .125)',
+        marginBottom: -1,
+        minHeight: 56,
+        '&$expanded': {
+            minHeight: 56,
+        },
+    },
+    content: {
+        '&$expanded': {
+            margin: '12px 0',
+        },
+    },
+    expanded: {},
+})(MuiExpansionPanelSummary);
+
+const ExpansionPanelDetails = withStyles(theme => ({
+    root: {
+        padding: theme.spacing(2),
+    },
+}))(MuiExpansionPanelDetails);
+
+export const Skill: React.FC<SkillProps> = (props) =>  {
+    const [expanded, setExpanded] = React.useState<string | false>(false);
+    const [skill] = useState<ISkill>(props.skill);
+    const { name, targetHours, achievedHours } = skill;
+    const displayName = name[0].toUpperCase().concat(name.substring(1));
+    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+        setExpanded(newExpanded ? panel : false);
+    };
     return (
-        <div onClick={() => setSummaryOnly(!summaryOnly)}>
-            { summaryOnly ?
-                <Card key="1">
-                    <H3>{name}</H3>
-                    <H4>{achievedHours}/{targetHours} target hours</H4>
-                    {startDate ? <H2>Started on  {moment(startDate).format('LL')} </H2> : ''}
-                </Card>
-            : 
-                <Card key="2">
-                    <H3>{name}</H3>
-                    <FormGroup label="Achieved hours" labelFor="achievedHours">
-                        <NumericInput
-                            id="achievedHours"
-                            data-testid="achievedHours"
-                            value={achievedHours}
-                            placeholder="Hours you target to achieve for this skill"
-                            onValueChange={handleAchievedHrsChange}
-                        />
-                    </FormGroup>            
-                    <H4>Target hours {targetHours}</H4>
-                    <H5>{description}</H5>
-                    {startDate ? <H2>Started on  {moment(startDate).format('LL')} </H2> : ''}            
-                    <Button
-                        type="submit"
-                        data-testid="submit" 
-                        text="Update" 
-                        onClick={() => updateSkill(props.skillId, skill)}
-                    />
-                </Card>
-            }
+        <div>
+            <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+                    <Box width="100%">
+                        <Box display="inline" width="50%" paddingRight={3}>
+                                {displayName}
+                        </Box>
+                        <Box display="inline" width="50%" paddingRight={3} fontWeight="fontWeightLight">
+                                {achievedHours}/{targetHours} hours achieved
+                        </Box>
+                    </Box>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <UpdateSkillForm skillId={props.skillId} skill={skill} />
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
         </div>
-    )
+    );
 }
