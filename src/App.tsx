@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import 'typeface-roboto';
 import 'normalize.css/normalize.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
@@ -7,6 +8,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { User } from 'firebase';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { H1, H2 } from '@blueprintjs/core';
+import { Container, Box, Typography } from '@material-ui/core';
 
 
 const uiConfig = {
@@ -33,18 +35,20 @@ const App: React.FC = () => {
       )
     })
     return (
-      <div className="App">
-        <H1>10000</H1>
-        <H2>Build your skills</H2>
-      <header className="App-header">
-      {
-        user ?
-        <Dashboard/>
-        :
-        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      }
-      </header>
-      </div>
+      <Container>
+        <Box paddingTop={4}>
+          <Typography variant="h3">10000</Typography>
+          <Typography variant="h5">Build your skills</Typography>
+        </Box>
+        <Box paddingTop={2}>
+        {
+          user ?
+          <Dashboard/>
+          :
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        }
+        </Box>
+      </Container>
       );
     }
     
