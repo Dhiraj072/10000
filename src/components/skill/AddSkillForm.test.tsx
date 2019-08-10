@@ -5,14 +5,14 @@ import { AddSkillForm } from './AddSkillForm';
 const mockOnsubmit = jest.fn();
 
 it('adds a new skill correctly', async () => {
-    const { getByTestId } = render(<AddSkillForm
+    const { getByTestId, getByPlaceholderText } = render(<AddSkillForm
         onSubmit={mockOnsubmit}
     />)
     
     // Get form inputs
-    const nameInput = getByTestId('name') as HTMLInputElement;
-    const descriptionInput = getByTestId('description') as HTMLInputElement;
-    const targetHoursInput = getByTestId('targetHours') as HTMLInputElement;
+    const nameInput = getByPlaceholderText('Short name for your skill') as HTMLInputElement;
+    const descriptionInput = getByPlaceholderText('Description for your skill') as HTMLInputElement;
+    const targetHoursInput = getByPlaceholderText('Hours you target to achieve for this skill') as HTMLInputElement;
     
     // Verify initial values are displayed correctly
     expect(nameInput.value).toEqual('');
@@ -22,7 +22,7 @@ it('adds a new skill correctly', async () => {
     // Update values
     await fireEvent.change(nameInput, { target: { value: 'test' }});
     await fireEvent.change(descriptionInput, { target: { value: 'test description' } });
-    await fireEvent.change(getByTestId('targetHours'), { target: { value: 100 } });
+    await fireEvent.change(targetHoursInput, { target: { value: 100 } });
     
     // Verify updated values are displayed correctly
     expect(nameInput.value).toEqual('test');
