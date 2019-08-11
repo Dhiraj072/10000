@@ -11,6 +11,28 @@ const initSkill: ISkill = {
     startDate: moment().startOf('day').valueOf()
 }
 
+interface ValidationData {
+    name: {
+        error: boolean,
+        errorMsg: string
+    },
+    targetHours: {
+        error: boolean,
+        errorMsg: string
+    }
+}
+
+const initValidationData: ValidationData = {
+    name: {
+        error: true,
+        errorMsg: "Name should be greater than 5 chars"
+    },
+    targetHours: {
+        error: true,
+        errorMsg: "Target hours must be greater than 0"
+    }
+}
+
 interface AddSkillFormProps {
     onSubmit(skill: ISkill): void;
 }
@@ -18,14 +40,17 @@ interface AddSkillFormProps {
 export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
     const { onSubmit } = props;
     const [skill, setSkill] = useState<ISkill>(initSkill);
+    const [validationData, setValidationData]= useState<ValidationData>(initValidationData);
     const handleTextInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event) {
-            event.preventDefault();
-        }
-        if (event.target.id === "targetHours")
+        if (event.target.id === "name" && event.target.value.length > 5) {
+            setValidationData({ ...validationData, name: { error: false, errorMsg: "" } })
+            setSkill({ ...skill, [event.target.id]: event.target.value });
+        } else if (event.target.id === "targetHours" && +event.target.value > 0) {
+            setValidationData({ ...validationData, targetHours: { error: false, errorMsg: "" } })
             setSkill({ ...skill, [event.target.id]: +event.target.value }); // convert value to number and set
-        else
-            setSkill({ ...skill, [event.target.id] : event.target.value});
+        } else {
+            setSkill({ ...skill, [event.target.id]: event.target.value }); // convert value to number and set
+        }
     }
     const handleClickSubmit = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation();
@@ -41,8 +66,9 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                     fullWidth
                     margin="normal"
                     id="name"
-                    data-testid="name"
                     label="Name"
+                    error={validationData.name.error}
+                    helperText={validationData.name.errorMsg}
                     placeholder="Short name for your skill"
                     value={skill.name}
                     onChange={handleTextInputChange}
@@ -51,7 +77,6 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                     fullWidth
                     margin="normal"
                     id="description"
-                    data-testid="description"
                     label="Description"
                     value={skill.description}
                     placeholder="Description for your skill"
@@ -61,8 +86,9 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                     fullWidth
                     margin="normal"
                     id="targetHours"
-                    data-testid="targetHours"
                     label="Target hours"
+                    error={validationData.targetHours.error}
+                    helperText={validationData.targetHours.errorMsg}
                     value={skill.targetHours}
                     type="number"
                     placeholder="Hours you target to achieve for this skill"
@@ -72,6 +98,7 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                     variant="contained"
                     color="primary"
                     data-testid="submit"
+                    disabled={validationData.name.error && validationData.targetHours.error}
                     type="submit"
                     onClick={handleClickSubmit}
                 >

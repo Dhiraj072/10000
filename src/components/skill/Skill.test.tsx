@@ -13,7 +13,7 @@ const skillProps = {
     }
 }
 
-afterEach(cleanup) //
+afterEach(cleanup) // avoid states messing with other tests
 
 it('renders a skill correctly', () => {
     const { getAllByText } = render(
@@ -21,7 +21,7 @@ it('renders a skill correctly', () => {
         skillId={skillProps.id}
         skill={skillProps.skill}
     />)
-    expect(getAllByText("foo")).toBeDefined();
+    expect(getAllByText("Foo")).toBeDefined();
     expect(getAllByText("2", { exact: false })).toBeDefined();
     expect(getAllByText("1", { exact: false })).toBeDefined();
 })
@@ -35,20 +35,20 @@ it.skip('toggles skill details on click correctly', async () => {
             skill={skillProps.skill}
         />);
     expect(queryByText(skillProps.skill.description)).toEqual(null);
-    await fireEvent.click(getByText(skillProps.skill.name));
+    await fireEvent.click(getByText("Foo"));
     expect(queryByText(skillProps.skill.description)).not.toEqual(null);
-    await fireEvent.click(getByText(skillProps.skill.name));
+    await fireEvent.click(getByText("Foo"));
     expect(queryByText(skillProps.skill.description)).toEqual(null);
 })
 
 it('updates a skill correctly', async () => {
-    const { getByText, getByPlaceholderText } = render(
+    const { getAllByText, getByText, getByPlaceholderText } = render(
         <Skill
             skillId={skillProps.id}
             skill={skillProps.skill}
         />);
     const updateSkillMock = jest.spyOn(firebase, "updateSkill");
-    await fireEvent.click(getByText(skillProps.skill.name));
+    await fireEvent.click(getAllByText("Foo")[0]);
     await fireEvent.change(getByPlaceholderText("Hours you have completed for this skill"), { target: { value: 2 } });
     await fireEvent.click(getByText("Update"));
     expect(updateSkillMock).toHaveBeenCalledWith(skillProps.id, {

@@ -4,8 +4,8 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { ISkill } from '../../common/types';
-import { Box } from '@material-ui/core';
 import { UpdateSkillForm } from './UpdateSkillForm';
+import { SkillSummary } from './SkillSummary';
 
 export interface SkillProps {
     skillId: string,
@@ -56,8 +56,6 @@ const ExpansionPanelDetails = withStyles(theme => ({
 export const Skill: React.FC<SkillProps> = (props) =>  {
     const [expanded, setExpanded] = React.useState<string | false>(false);
     const [skill] = useState<ISkill>(props.skill);
-    const { name, targetHours, achievedHours } = skill;
-    const displayName = name[0].toUpperCase().concat(name.substring(1));
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
         setExpanded(newExpanded ? panel : false);
     };
@@ -65,14 +63,7 @@ export const Skill: React.FC<SkillProps> = (props) =>  {
         <div>
             <ExpansionPanel square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                 <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-                    <Box width="100%">
-                        <Box display="inline" width="50%" paddingRight={3}>
-                                {displayName}
-                        </Box>
-                        <Box display="inline" width="50%" paddingRight={3} fontWeight="fontWeightLight">
-                                {achievedHours}/{targetHours} hours achieved
-                        </Box>
-                    </Box>
+                    <SkillSummary skillId={props.skillId} skill={skill}/>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <UpdateSkillForm skillId={props.skillId} skill={skill} />

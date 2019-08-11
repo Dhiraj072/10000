@@ -20,6 +20,10 @@ const KeyValueDisplay: React.FC<KeyValue> = (props) => (
         <Box/>
 );
 
+const withFirstLetterCaps = (str: string | undefined): string => (
+    str && str[0] ? str[0].toUpperCase().concat(str.substring(1)) : ""
+);
+
 export const UpdateSkillForm: React.FC<SkillProps> = (props) => {
     const [skill, setSkill] = useState<ISkill>(props.skill);
     const { name, description, targetHours, achievedHours, startDate } = skill;
@@ -33,8 +37,8 @@ export const UpdateSkillForm: React.FC<SkillProps> = (props) => {
     }
     return (
         <Box width="100%">
-            <KeyValueDisplay title="Name" value={name} />
-            <KeyValueDisplay title="Description" value={description} />
+            <KeyValueDisplay title="Name" value={withFirstLetterCaps(name)} />
+            <KeyValueDisplay title="Description" value={withFirstLetterCaps(description)} />
             <KeyValueDisplay title="Target hours" value={targetHours.toString()}/>
             <KeyValueDisplay title="Achieved hours" value={achievedHours.toString()} />
             <KeyValueDisplay title="Started on" value={moment(startDate).format('LL')} />
