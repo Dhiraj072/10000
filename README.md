@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Yarn v1.3.2 - Installation instructions [here](https://yarnpkg.com/lang/en/docs/install/)
 * Node v10.16.0 - Installation instructions [here](https://nodejs.org/en/download/package-manager/)
-* Firebase project - Helpful if you are familiar with using firebase. 
+* Firebase project - Requires a firebase project setup as the app uses firebase for authentication, database and hosting. Helpful if you are familiar with using firebase. 
 
 ### Setting up the project
 
@@ -32,7 +32,7 @@ $ yarn install
 Set up a Firebase project for your application. Read [setting up firebase for your project](https://firebase.google.com/docs/web/setup). Note that the project supports login via Google/Facebook, though for it to work correctly, you will need to enable the the sign-in methods for those in your Firebase Authentication console. See the instructions for [Google](https://firebase.google.com/docs/auth/web/google-signin) and [Facebook](https://firebase.google.com/docs/auth/web/facebook-login).
 
 
-Create firebase properties file. This contains the credentials/settings used to connect to firebase for your dev server / tests. For production, I use firebase hosting, which allows me to automatically retrieve these for firebase server.
+Create firebase properties file. This contains the credentials/settings used to connect to firebase for your dev server / tests. For production, I use firebase hosting, which allows me to automatically retrieve these from firebase server.
 
 ```
 $ vi .env.development
@@ -42,12 +42,13 @@ $ vi .env.test
 And fill up following firebase account properties in the file
 
 ```
-FIREBASE_API_KEY=<>
-FIREBASE_AUTH_DOMAIN=<>
-FIREBASE_DATABASE_URL=<>
-FIREBASE_PROJECT_ID=<>
-FIREBASE_STORAGE_BUCKET=<>
-FIREBASE_MESSAGING_SENDER_ID=<>
+REACT_APP_API_KEY=
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_DATABASE_URL=
+REACT_APP_PROJECT_ID=
+REACT_APP_STORAGE_BUCKET=
+REACT_APP_MESSAGING_SENDER_ID=
+REACT_APP_APP_ID=
 ```
 
 Run development server
