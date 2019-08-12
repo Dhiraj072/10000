@@ -7,7 +7,7 @@ import firebase from 'firebase';
 
 const initFirebaseAndRenderApp = () => {
     if (firebase.apps.length < 1)
-        setTimeout(() => { initFirebaseAndRenderApp() }, 10); 
+        setTimeout(() => { initFirebaseAndRenderApp() }, 100); 
     else
         ReactDOM.render(<App />, document.getElementById('root'));
 }

@@ -27,7 +27,15 @@ const getUserId = (): string => {
         return user.uid;
     }
     throw new Error("Not logged in");
-} 
+}
+
+export const signInAnonymously = () => {
+    firebase.auth().signInAnonymously();
+}
+
+export const logOut = () => {
+    firebase.auth().signOut();
+}
 
 export const addSkill = async (skill: ISkill) => {
     await firebase.database().ref(`users/${getUserId()}/skills`).push(skill)
@@ -41,7 +49,6 @@ export const getSkills = async (): Promise<[string, ISkill][]> => {
         ? Promise.resolve(Object.entries(res.val() as { [key: string]: ISkill }))
         : Promise.resolve([])
     }).catch((err) => {
-        console.log(err);
         return Promise.reject("Error getting skills" + err);
     });
 }

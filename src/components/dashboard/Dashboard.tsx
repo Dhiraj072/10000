@@ -9,6 +9,7 @@ import { ISkill } from '../../common/types';
 import { addSkill, getSkills } from '../../firebase/firebase';
 import { AddSkillForm } from '../skill/AddSkillForm';
 import { SkillsList } from '../skill/SkillsList';
+import { UserInfo } from '../user/UserInfo';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -69,6 +70,7 @@ export const Dashboard: React.FC = () => {
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="My skills" {...a11yProps(0)} />
                     <Tab label="Add skill" {...a11yProps(1)} />
+                    <Tab label="Account" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
@@ -76,6 +78,9 @@ export const Dashboard: React.FC = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <AddSkillForm onSubmit={addSkill} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <UserInfo/>
             </TabPanel>
         </div>
     );

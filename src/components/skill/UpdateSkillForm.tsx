@@ -10,7 +10,7 @@ interface KeyValue {
     value: string | undefined
 }
 
-const KeyValueDisplay: React.FC<KeyValue> = (props) => (
+export const KeyValueDisplay: React.FC<KeyValue> = (props) => (
     props.value ? 
         <Box width="100%">
             <Box width="30%" display="inline-block" padding={1} fontWeight="fontWeightMedium">{props.title}</Box>

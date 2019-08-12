@@ -7,15 +7,15 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { User } from 'firebase';
 import { Dashboard } from './components/dashboard/Dashboard';
-import { Container, Box, Typography } from '@material-ui/core';
-
+import { Container, Box, Typography, Button } from '@material-ui/core';
+import { signInAnonymously } from './firebase/firebase';
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInSuccessUrl: '/signedIn',
-  // We will display Google and Facebook as auth providers.
+  // We will display Google as providers.
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
@@ -44,7 +44,10 @@ const App: React.FC = () => {
           user ?
           <Dashboard/>
           :
-          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          <Box textAlign="center">
+                <Button variant="outlined" color="primary" onClick={signInAnonymously} >Continue as Guest</Button>
+                <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          </Box>
         }
         </Box>
       </Container>
