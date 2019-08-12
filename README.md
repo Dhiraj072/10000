@@ -1,44 +1,110 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 10000
 
-## Available Scripts
+Track the 10000 hours (or less) to expertise in a skill. Based on [10000 hour rule](https://en.wikipedia.org/wiki/Outliers_(book)) by  Malcolm Gladwell.
 
-In the project directory, you can run:
+Demo application is running live [here](https://project-10000-hours.firebaseapp.com/).
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+These instructions will get you a copy of the project up and running on your local machine.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+* Yarn v1.3.2 - Installation instructions [here](https://yarnpkg.com/lang/en/docs/install/)
+* Node v10.16.0 - Installation instructions [here](https://nodejs.org/en/download/package-manager/)
+* Firebase project - Helpful if you are familiar with using firebase. 
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Setting up the project
 
-### `npm run build`
+Clone the repository and cd to it
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+$ git clone https://github.com/Dhiraj072/10000
+$ cd 10000
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Install packages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+$ yarn install
+```
 
-### `npm run eject`
+Set up a Firebase project for your application. Read [setting up firebase for your project](https://firebase.google.com/docs/web/setup). Note that the project supports login via Google/Facebook, though for it to work correctly, you will need to enable the the sign-in methods for those in your Firebase Authentication console. See the instructions for [Google](https://firebase.google.com/docs/auth/web/google-signin) and [Facebook](https://firebase.google.com/docs/auth/web/facebook-login).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create firebase properties file. This contains the credentials/settings used to connect to firebase for your dev server / tests. For production, I use firebase hosting, which allows me to automatically retrieve these for firebase server.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+$ vi .env.development
+$ vi .env.test
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+And fill up following firebase account properties in the file
 
-## Learn More
+```
+FIREBASE_API_KEY=<>
+FIREBASE_AUTH_DOMAIN=<>
+FIREBASE_DATABASE_URL=<>
+FIREBASE_PROJECT_ID=<>
+FIREBASE_STORAGE_BUCKET=<>
+FIREBASE_MESSAGING_SENDER_ID=<>
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run development server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+$ yarn start
+```
+
+
+Finally, access the application at http://localhost:3000/
+
+
+## Deploying the project to firebase hosting
+
+I use firebase hosting to deploy the app. It's completely free and easy to use. 
+
+Replace the default project name in .firebaserc with your Firebase project's name
+```
+{
+  "projects": {
+    "default": "<your_project_here>",
+  }
+}
+
+```
+
+Initialize firebase deployment
+```
+$ yarn firebase init
+```
+
+Create a production build
+```
+$ yarn build
+```
+
+Deploy to firebase
+```
+$ yarn deploy
+```
+
+Firebase should come back with a url with which you will be able to access the app.
+
+
+## Built With
+
+* [React](https://reactjs.org/) - The web framework used
+* [Yarn](https://yarnpkg.com/en/) - Dependency Management
+* [Webpack](https://webpack.js.org/) - Module bundler
+* [Jest](https://jestjs.io/) - Testing framework
+* [Firebase](https://firebase.google.com/) - Database
+
+## Authors
+
+* [Dhiraj](https://github.com/dhiraj072)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
