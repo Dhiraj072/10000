@@ -97,7 +97,7 @@ export const AddSkillForm: React.FC<AddSkillFormProps> = (props) => {
                 <Button 
                     variant="contained"
                     color="primary"
-                    data-testid="submit"
+                    data-testid="add-skill"
                     disabled={validationData.name.error && validationData.targetHours.error}
                     type="submit"
                     onClick={handleClickSubmit}

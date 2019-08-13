@@ -23,3 +23,12 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("loginAsGuest", () => {
+    cy.visit('/');
+    cy.contains('Continue as Guest').click();
+})
+
+Cypress.Commands.add("visitTab", (text) => {
+    cy.contains(text).click();
+})

@@ -22,7 +22,7 @@ export const SkillSummary: React.FC<SkillProps> = (props) => {
             <Box display="inline-block" textAlign="right" width="30%" paddingRight={3}>
                 <Button
                     color="secondary"
-                    data-testid="submit"
+                    data-testid="delete-skill"
                     type="submit"
                     onClick={handleClickDelete}
                 >

@@ -17,7 +17,12 @@ export const UserInfo: React.FC<{}> = () => {
                     value={user.displayName == null ? '' : user.displayName}
                 />
                 <Box paddingTop={2}>
-                    <Button onClick={logOut} variant="outlined" color="secondary">
+                    <Button
+                        onClick={logOut}
+                        variant="outlined"
+                        color="secondary"
+                        data-testid="logout"
+                    >
                         Logout
                     </Button>
                 </Box>

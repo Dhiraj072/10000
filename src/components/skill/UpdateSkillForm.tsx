@@ -58,7 +58,7 @@ export const UpdateSkillForm: React.FC<SkillProps> = (props) => {
                     <Button
                         variant="contained"
                         color="primary"
-                        data-testid="submit"
+                        data-testid="update-skill"
                         type="submit"
                         onClick={handleClickUpdate}
                     >
