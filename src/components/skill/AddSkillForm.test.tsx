@@ -30,7 +30,7 @@ it('adds a new skill correctly', async () => {
     expect(targetHoursInput.value).toEqual('100');
 
     // Verify onSubmit callback called with correct params
-    fireEvent.click(getByTestId('submit'));
+    fireEvent.click(getByTestId('add-skill'));
     expect(mockOnsubmit).toHaveBeenCalledWith({
         name: 'test',
         description: 'test description',
